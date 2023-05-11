@@ -96,11 +96,12 @@ postgresql:
     initdb:
       scripts:
         create-db.sql:
-          CREATE DATABASE helxapp_config;
+          CREATE DATABASE grader_config;
         create-schema.sql: |
-          CREATE TABLE templates (
-            set_name text NOT NULL,
-            name text NOT NULL,
-            content text,
-            PRIMARY KEY (set_name, name)
+          CREATE TABLE student (
+            id SERIAL primary key,
+            first_name text NOT NULL,
+            last_name text NOT NULL,
+            professor_onyen text NOT NULL
           );
+
