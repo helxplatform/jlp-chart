@@ -98,6 +98,7 @@ postgresql:
         create-db.sql:
           CREATE DATABASE grader_config;
         create-schema.sql: |
+          \connect grader_config;
           CREATE TABLE student (
             id SERIAL primary key,
             first_name text NOT NULL,
