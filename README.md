@@ -1,6 +1,6 @@
 # jlp-chart
 
-![Version: 0.2.0](https://img.shields.io/badge/Version-0.2.0-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 0.1.0](https://img.shields.io/badge/AppVersion-0.1.0-informational?style=flat-square)
+![Version: 0.2.1](https://img.shields.io/badge/Version-0.2.1-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 0.1.0](https://img.shields.io/badge/AppVersion-0.1.0-informational?style=flat-square)
 
 A Helm chart for Kubernetes
 
@@ -33,8 +33,8 @@ A Helm chart for Kubernetes
 | podAnnotations | object | `{}` |  |
 | podSecurityContext | object | `{}` |  |
 | postgresql.enabled | bool | `true` |  |
-| postgresql.primary.initdb.scripts."create-db.sql" | string | `"CREATE DATABASE helxapp_config;"` |  |
-| postgresql.primary.initdb.scripts."create-schema.sql" | string | `"CREATE TABLE templates (\n  set_name text NOT NULL,\n  name text NOT NULL,\n  content text,\n  PRIMARY KEY (set_name, name)\n);\n"` |  |
+| postgresql.primary.initdb.scripts."create-db.sql" | string | `"CREATE DATABASE grader_config;"` |  |
+| postgresql.primary.initdb.scripts."create-schema.sql" | string | `"\\connect grader_config;\nCREATE TABLE student (\n  id SERIAL primary key,\n  first_name text NOT NULL,\n  last_name text NOT NULL,\n  professor_onyen text NOT NULL\n);\n"` |  |
 | professorName | string | `""` |  |
 | professorOnyen | string | `""` |  |
 | replicaCount | int | `1` |  |
