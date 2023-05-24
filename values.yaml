@@ -89,3 +89,23 @@ nodeSelector: {}
 tolerations: []
 
 affinity: {}
+
+# Though the default name "eduhelx_classname" will work for simplistic
+# testing environments, make sure to override the database name below
+# with the actual database name otherwise.
+postgresql:
+  enabled: true
+  primary:
+    initdb:
+      scripts:
+        create-db.sql:
+          CREATE DATABASE eduhelx_classname;
+        create-schema.sql: |
+          \connect eduhelx_classname;
+          CREATE TABLE student (
+            id SERIAL primary key,
+            first_name text NOT NULL,
+            last_name text NOT NULL,
+            professor_onyen text NOT NULL
+          );
+
