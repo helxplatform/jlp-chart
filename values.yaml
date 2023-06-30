@@ -108,4 +108,10 @@ postgresql:
             last_name text NOT NULL,
             professor_onyen text NOT NULL
           );
+          CREATE TABLE submission (
+            id SERIAL PRIMARY KEY,
+            student_id INTEGER REFERENCES student (id),
+            commit_id VARCHAR(255),
+            submission_time TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+          );
 
