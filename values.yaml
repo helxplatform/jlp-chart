@@ -106,7 +106,7 @@ postgresql:
             id SERIAL primary key,
             first_name text NOT NULL,
             last_name text NOT NULL,
-            student_onyen text NOT NULL,
+            student_onyen text NOT NULL UNIQUE,
             professor_onyen text NOT NULL
           );
           CREATE TABLE submission (
