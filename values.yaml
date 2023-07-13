@@ -111,8 +111,19 @@ postgresql:
           );
           CREATE TABLE submission (
             id SERIAL PRIMARY KEY,
-            student_id INTEGER REFERENCES student (id),
+            student_id INTEGER REFERENCES student (id) NOT NULL,
+            assignment_id INTEGER REFERENCES assignment (id) NOT NULL,
             commit_id VARCHAR(255),
             submission_time TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+          );
+          CREATE TABLE assignment (
+            id SERIAL PRIMARY KEY,
+            name TEXT NOT NULL,
+            git_remote_url text NOT NULL,
+            revision_count INTEGER DEFAULT 0,
+            created_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+            released_date TIMESTAMP,
+            last_modified_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+            due_date TIMESTAMP NOT NULL
           );
 
