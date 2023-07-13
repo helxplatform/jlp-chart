@@ -89,3 +89,41 @@ nodeSelector: {}
 tolerations: []
 
 affinity: {}
+
+# Though the default name "eduhelx_classname" will work for simplistic
+# testing environments, make sure to override the database name below
+# with the actual database name otherwise.
+postgresql:
+  enabled: true
+  primary:
+    initdb:
+      scripts:
+        create-db.sql:
+          CREATE DATABASE eduhelx_classname;
+        create-schema.sql: |
+          \connect eduhelx_classname;
+          CREATE TABLE student (
+            id SERIAL primary key,
+            first_name text NOT NULL,
+            last_name text NOT NULL,
+            student_onyen text NOT NULL UNIQUE,
+            professor_onyen text NOT NULL
+          );
+          CREATE TABLE submission (
+            id SERIAL PRIMARY KEY,
+            student_id INTEGER REFERENCES student (id) NOT NULL,
+            assignment_id INTEGER REFERENCES assignment (id) NOT NULL,
+            commit_id VARCHAR(255),
+            submission_time TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+          );
+          CREATE TABLE assignment (
+            id SERIAL PRIMARY KEY,
+            name TEXT NOT NULL,
+            git_remote_url text NOT NULL,
+            revision_count INTEGER DEFAULT 0,
+            created_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+            released_date TIMESTAMP,
+            last_modified_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+            due_date TIMESTAMP NOT NULL
+          );
+
