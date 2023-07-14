@@ -126,4 +126,11 @@ postgresql:
             commit_id VARCHAR(255),
             submission_time TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP
           );
+          CREATE TABLE extra_time (
+            id SERIAL PRIMARY KEY,
+            student_id INTEGER REFERENCES student (id) NOT NULL,
+            assignment_id INTEGER REFERENCES assignment (id) NOT NULL,
+            time INTERVAL NOT NULL,
+            UNIQUE (student_id, assignment_id) 
+          );
 
