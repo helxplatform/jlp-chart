@@ -109,13 +109,6 @@ postgresql:
             student_onyen text NOT NULL UNIQUE,
             professor_onyen text NOT NULL
           );
-          CREATE TABLE submission (
-            id SERIAL PRIMARY KEY,
-            student_id INTEGER REFERENCES student (id) NOT NULL,
-            assignment_id INTEGER REFERENCES assignment (id) NOT NULL,
-            commit_id VARCHAR(255),
-            submission_time TIMESTAMP DEFAULT CURRENT_TIMESTAMP
-          );
           CREATE TABLE assignment (
             id SERIAL PRIMARY KEY,
             name TEXT NOT NULL,
@@ -125,5 +118,12 @@ postgresql:
             released_date TIMESTAMP,
             last_modified_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
             due_date TIMESTAMP NOT NULL
+          );
+          CREATE TABLE submission (
+            id SERIAL PRIMARY KEY,
+            student_id INTEGER REFERENCES student (id) NOT NULL,
+            assignment_id INTEGER REFERENCES assignment (id) NOT NULL,
+            commit_id VARCHAR(255),
+            submission_time TIMESTAMP DEFAULT CURRENT_TIMESTAMP
           );
 
