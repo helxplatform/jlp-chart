@@ -113,7 +113,6 @@ postgresql:
             id SERIAL PRIMARY KEY,
             name TEXT NOT NULL,
             directory_path text NOT NULL,
-            revision_count INTEGER DEFAULT 0,
             created_date TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP,
             released_date TIMESTAMP WITH TIME ZONE NOT NULL,
             last_modified_date TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP,
