@@ -117,7 +117,7 @@ postgresql:
             created_date TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP,
             released_date TIMESTAMP WITH TIME ZONE NOT NULL,
             last_modified_date TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP,
-            due_date TIMESTAMP WITH TIME ZONE NOT NULL
+            base_time INTERVAL NOT NULL
           );
           CREATE TABLE submission (
             id SERIAL PRIMARY KEY,
