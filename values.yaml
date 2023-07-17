@@ -112,7 +112,7 @@ postgresql:
           CREATE TABLE assignment (
             id SERIAL PRIMARY KEY,
             name TEXT NOT NULL,
-            git_remote_url text NOT NULL,
+            directory_path text NOT NULL,
             revision_count INTEGER DEFAULT 0,
             created_date TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP,
             released_date TIMESTAMP WITH TIME ZONE NOT NULL,
@@ -133,4 +133,3 @@ postgresql:
             time INTERVAL NOT NULL,
             UNIQUE (student_id, assignment_id) 
           );
-
