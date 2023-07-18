@@ -102,6 +102,11 @@ postgresql:
           CREATE DATABASE eduhelx_classname;
         create-schema.sql: |
           \connect eduhelx_classname;
+          CREATE TABLE course (
+            id SERIAL primary key,
+            name text NOT NULL,
+            master_remote_url text NOT NULL
+          );
           CREATE TABLE student (
             id SERIAL primary key,
             first_name text NOT NULL,
