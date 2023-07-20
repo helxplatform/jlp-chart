@@ -119,9 +119,9 @@ postgresql:
             name TEXT NOT NULL,
             directory_path text NOT NULL,
             created_date TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP,
-            released_date TIMESTAMP WITH TIME ZONE NOT NULL,
-            last_modified_date TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP,
-            base_time INTERVAL NOT NULL
+            available_date TIMESTAMP WITH TIME ZONE,
+            due_date TIEMSTAMP WITH TIME ZONE,
+            last_modified_date TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP
           );
           CREATE TABLE submission (
             id SERIAL PRIMARY KEY,
