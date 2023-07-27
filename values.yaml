@@ -135,6 +135,6 @@ postgresql:
             student_id INTEGER REFERENCES student (id) NOT NULL,
             assignment_id INTEGER REFERENCES assignment (id) NOT NULL,
             deferred_date TIMESTAMP WITH TIME ZONE,
-            extra_time INTERVAL NOT NULL,
+            extra_time INTERVAL,
             UNIQUE (student_id, assignment_id) 
           );
