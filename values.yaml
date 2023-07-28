@@ -102,10 +102,39 @@ postgresql:
           CREATE DATABASE eduhelx_classname;
         create-schema.sql: |
           \connect eduhelx_classname;
+          CREATE TABLE course (
+            id SERIAL primary key,
+            name text NOT NULL,
+            master_remote_url text NOT NULL
+          );
           CREATE TABLE student (
             id SERIAL primary key,
             first_name text NOT NULL,
             last_name text NOT NULL,
+            student_onyen text NOT NULL UNIQUE,
             professor_onyen text NOT NULL
           );
-
+          CREATE TABLE assignment (
+            id SERIAL PRIMARY KEY,
+            name TEXT NOT NULL,
+            directory_path text NOT NULL,
+            created_date TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP,
+            available_date TIMESTAMP WITH TIME ZONE,
+            due_date TIMESTAMP WITH TIME ZONE,
+            last_modified_date TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP
+          );
+          CREATE TABLE submission (
+            id SERIAL PRIMARY KEY,
+            student_id INTEGER REFERENCES student (id) NOT NULL,
+            assignment_id INTEGER REFERENCES assignment (id) NOT NULL,
+            commit_id VARCHAR(255),
+            submission_time TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP
+          );
+          CREATE TABLE extra_time (
+            id SERIAL PRIMARY KEY,
+            student_id INTEGER REFERENCES student (id) NOT NULL,
+            assignment_id INTEGER REFERENCES assignment (id) NOT NULL,
+            deferred_time INTERVAL DEFAULT 0,
+            extra_time INTERVAL DEFAULT 0,
+            UNIQUE (student_id, assignment_id) 
+          );
