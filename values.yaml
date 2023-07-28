@@ -120,7 +120,7 @@ postgresql:
             directory_path text NOT NULL,
             created_date TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP,
             available_date TIMESTAMP WITH TIME ZONE,
-            assignment_duration INTERVAL,
+            due_date TIMESTAMP WITH TIME ZONE,
             last_modified_date TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP
           );
           CREATE TABLE submission (
@@ -134,7 +134,7 @@ postgresql:
             id SERIAL PRIMARY KEY,
             student_id INTEGER REFERENCES student (id) NOT NULL,
             assignment_id INTEGER REFERENCES assignment (id) NOT NULL,
-            deferred_date TIMESTAMP WITH TIME ZONE,
+            deferred_time INTERVAL DEFAULT 0,
             extra_time INTERVAL DEFAULT 0,
             UNIQUE (student_id, assignment_id) 
           );
