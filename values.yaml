@@ -1,6 +1,5 @@
 # Default values for jlp-chart.
-# This is a YAML-formatted file.
-# Declare variables to be passed into your templates.
+# Create your own overrides file to pass in your own values.
 
 replicaCount: 1
 
@@ -14,7 +13,7 @@ classIDsTeaching:
 
 image:
   repository: containers.renci.org/helxplatform/jupyter-lab-prof
-  pullPolicy: IfNotPresent
+  pullPolicy: Always
   # Overrides the image tag whose default is the chart appVersion.
   tag: "develop"
 
@@ -35,16 +34,16 @@ serviceAccount:
 
 podAnnotations: {}
 
-podSecurityContext: {}
-  # fsGroup: 2000
-
-securityContext:
-  # capabilities:
-  #   drop:
-  #   - ALL
-  # readOnlyRootFilesystem: true
+podSecurityContext:
   runAsNonRoot: true
   runAsUser: 30000
+  runAsGroup: 1136
+  fsGroup: 1136
+
+securityContext:
+  runAsNonRoot: true
+  runAsUser: 30000
+  runAsGroup: 1136
 
 service:
   type: ClusterIP
@@ -66,10 +65,6 @@ ingress:
   #      - eduhelx-dev-jlp.apps.renci.org
 
 resources:
-  # We usually recommend not to specify default resources and to leave this as a conscious
-  # choice for the user. This also increases chances charts run on environments with little
-  # resources, such as Minikube. If you do want to specify resources, uncomment the following
-  # lines, adjust them as necessary, and remove the curly braces after 'resources:'.
   limits:
     cpu: 500m
     memory: 1Gi
