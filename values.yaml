@@ -7,9 +7,13 @@ replicaCount: 1
 professorOnyen: ""
 # The professor's full name. Used only for UI purposes.
 professorName: ""
-# Class IDs that the professor is teaching. Used to specify which class PVCs to mount, among other things.
+# Class IDs that the professor is teaching. 
+# Used to specify which class PVCs to mount, among other things.
+# NOTE: AS OF RIGHT NOW, THESE PVCs MUST EXIST PRIOR TO INSTALLING THIS CHART!
 classIDsTeaching:
-  - '1'
+  - CS101
+  - COMP116
+  - CHIP690
 
 image:
   repository: containers.renci.org/helxplatform/jupyter-lab-prof
@@ -34,11 +38,11 @@ serviceAccount:
 
 podAnnotations: {}
 
-podSecurityContext:
-  runAsNonRoot: true
-  runAsUser: 30000
-  runAsGroup: 1136
-  fsGroup: 1136
+podSecurityContext: {}
+  # runAsNonRoot: true
+  # runAsUser: 30000
+  # runAsGroup: 1136
+  # fsGroup: 1136
 
 securityContext:
   runAsNonRoot: true
@@ -49,6 +53,9 @@ service:
   type: ClusterIP
   port: 8888
 
+# Determines whether an ingress should be created.
+# This should be enabled and the below uncommented before installing, but you must change the
+# values to be relevant to your environment.
 ingress:
   enabled: false
   className: ""
