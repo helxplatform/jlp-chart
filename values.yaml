@@ -9,7 +9,8 @@ professorOnyen: ""
 professorName: ""
 # Class IDs that the professor is teaching. 
 # Used to specify which class PVCs to mount, among other things.
-# NOTE: AS OF RIGHT NOW, THESE PVCs MUST EXIST PRIOR TO INSTALLING THIS CHART!
+# NOTE: AS OF RIGHT NOW, THESE PVCs MUST EXIST PRIOR TO INSTALLING THIS CHART,
+#       in the form <lowercase_class_id>-pvc, so cs101-pvc, comp116-pvc, etc.
 classIDsTeaching:
   - CS101
   - COMP116
