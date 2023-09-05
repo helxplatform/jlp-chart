@@ -27,14 +27,25 @@ spec:
       {{- if .Values.classIDsTeaching }}
       volumes:
       {{- range $id := .Values.classIDsTeaching }}
-        - name: class-{{ $id }}-volume
+        - name: {{ $id | lower }}-volume
           persistentVolumeClaim:
-            claimName: class-{{ $id }}-pvc
+            claimName: {{ $id | lower }}-pvc
       {{- end }}
       {{- end }}
       serviceAccountName: {{ include "jlp-chart.serviceAccountName" . }}
       securityContext:
         {{- toYaml .Values.podSecurityContext | nindent 8 }}
+      initContainers:
+        - name: changeowner
+          image: busybox
+          command: ["/bin/sh", "-c", "chown -R 30000:1136 /home/{{ $.Values.professorOnyen }}"]
+          volumeMounts:
+          {{- range $id := .Values.classIDsTeaching }}
+            - mountPath: "/home/{{ $.Values.professorOnyen }}/{{ $id }}"
+              name: {{ $id | lower }}-volume
+          {{- end }}
+          securityContext:
+            runAsUser: 0
       containers:
         - name: {{ .Values.nameOverride }}-{{ .Values.professorOnyen }}
           securityContext:
@@ -46,11 +57,15 @@ spec:
               value: {{ .Values.professorOnyen }}
             - name: PROF_NAME
               value: {{ .Values.professorName }}
+            {{- if .Values.classIDsTeaching }} 
+            - name: CLASS_IDS_TEACHING
+              value: {{ include "jlp-chart.classIdStringBuilder" . | trimSuffix "," | quote }}
+            {{- end }}
           {{- if .Values.classIDsTeaching }}
           volumeMounts:
           {{- range $id := .Values.classIDsTeaching }}
-            - mountPath: "/home/{{ $.Values.professorOnyen }}/class-{{ $id }}"
-              name: class-{{ $id }}-volume
+            - mountPath: "/home/{{ $.Values.professorOnyen }}/{{ $id }}"
+              name: {{ $id | lower }}-volume
           {{- end }}
           {{- end }}
           ports:

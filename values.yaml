@@ -1,6 +1,5 @@
 # Default values for jlp-chart.
-# This is a YAML-formatted file.
-# Declare variables to be passed into your templates.
+# Create your own overrides file to pass in your own values.
 
 replicaCount: 1
 
@@ -8,13 +7,18 @@ replicaCount: 1
 professorOnyen: ""
 # The professor's full name. Used only for UI purposes.
 professorName: ""
-# Class IDs that the professor is teaching. Used to specify which class PVCs to mount, among other things.
+# Class IDs that the professor is teaching. 
+# Used to specify which class PVCs to mount, among other things.
+# NOTE: AS OF RIGHT NOW, THESE PVCs MUST EXIST PRIOR TO INSTALLING THIS CHART,
+#       with the names <lowercase_class_id>-pvc, so cs101-pvc, comp116-pvc, etc.
 classIDsTeaching:
-  - '1'
+  - CS101
+  - COMP116
+  - CHIP690
 
 image:
   repository: containers.renci.org/helxplatform/jupyter-lab-prof
-  pullPolicy: IfNotPresent
+  pullPolicy: Always
   # Overrides the image tag whose default is the chart appVersion.
   tag: "develop"
 
@@ -36,20 +40,23 @@ serviceAccount:
 podAnnotations: {}
 
 podSecurityContext: {}
-  # fsGroup: 2000
+  # runAsNonRoot: true
+  # runAsUser: 30000
+  # runAsGroup: 1136
+  # fsGroup: 1136
 
 securityContext:
-  # capabilities:
-  #   drop:
-  #   - ALL
-  # readOnlyRootFilesystem: true
   runAsNonRoot: true
   runAsUser: 30000
+  runAsGroup: 1136
 
 service:
   type: ClusterIP
   port: 8888
 
+# Determines whether an ingress should be created.
+# This should be enabled and the below uncommented before installing, but you must change the
+# values to be relevant to your environment.
 ingress:
   enabled: false
   className: ""
@@ -66,10 +73,6 @@ ingress:
   #      - eduhelx-dev-jlp.apps.renci.org
 
 resources:
-  # We usually recommend not to specify default resources and to leave this as a conscious
-  # choice for the user. This also increases chances charts run on environments with little
-  # resources, such as Minikube. If you do want to specify resources, uncomment the following
-  # lines, adjust them as necessary, and remove the curly braces after 'resources:'.
   limits:
     cpu: 500m
     memory: 1Gi

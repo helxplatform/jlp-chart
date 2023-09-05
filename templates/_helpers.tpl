@@ -60,3 +60,9 @@ Create the name of the service account to use
 {{- default "default" .Values.serviceAccount.name }}
 {{- end }}
 {{- end }}
+
+{{- define "jlp-chart.classIdStringBuilder" -}}
+{{- if .Values.classIDsTeaching }}
+{{- range $id := .Values.classIDsTeaching }}{{(print $id)}},{{- end }}
+{{- end }}
+{{- end }}
