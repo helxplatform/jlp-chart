@@ -3,14 +3,14 @@ kind: Deployment
 metadata:
   name: {{ printf "%s-%s" .Values.fullnameOverride .Values.professorOnyen }}
   labels:
-    {{- include "jlp-chart.labels" . | nindent 4 }}
+    {{- include "jlp.labels" . | nindent 4 }}
 spec:
   {{- if not .Values.autoscaling.enabled }}
   replicas: {{ .Values.replicaCount }}
   {{- end }}
   selector:
     matchLabels:
-      {{- include "jlp-chart.selectorLabels" . | nindent 6 }}
+      {{- include "jlp.selectorLabels" . | nindent 6 }}
   template:
     metadata:
       {{- with .Values.podAnnotations }}
@@ -18,7 +18,7 @@ spec:
         {{- toYaml . | nindent 8 }}
       {{- end }}
       labels:
-        {{- include "jlp-chart.selectorLabels" . | nindent 8 }}
+        {{- include "jlp.selectorLabels" . | nindent 8 }}
     spec:
       {{- with .Values.imagePullSecrets }}
       imagePullSecrets:
@@ -32,7 +32,7 @@ spec:
             claimName: {{ $id | lower }}-pvc
       {{- end }}
       {{- end }}
-      serviceAccountName: {{ include "jlp-chart.serviceAccountName" . }}
+      serviceAccountName: {{ include "jlp.serviceAccountName" . }}
       securityContext:
         {{- toYaml .Values.podSecurityContext | nindent 8 }}
       initContainers:
@@ -59,7 +59,7 @@ spec:
               value: {{ .Values.professorName }}
             {{- if .Values.classIDsTeaching }} 
             - name: CLASS_IDS_TEACHING
-              value: {{ include "jlp-chart.classIdStringBuilder" . | trimSuffix "," | quote }}
+              value: {{ include "jlp.classIdStringBuilder" . | trimSuffix "," | quote }}
             {{- end }}
           {{- if .Values.classIDsTeaching }}
           volumeMounts:

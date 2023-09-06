@@ -1,0 +1,14 @@
+i{{- $values := .Values.classIDsTeaching | default list }}
+{{- range $values }}
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: {{ . }}-pvc
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 5Gi
+{{- end }}
