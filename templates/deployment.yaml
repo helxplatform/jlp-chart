@@ -57,10 +57,16 @@ spec:
               value: {{ .Values.professorOnyen }}
             - name: PROF_NAME
               value: {{ .Values.professorName }}
-            {{- if .Values.classIDsTeaching }} 
+            {{- if .Values.classIDsTeaching }}
             - name: CLASS_IDS_TEACHING
               value: {{ include "jlp-chart.classIdStringBuilder" . | trimSuffix "," | quote }}
             {{- end }}
+            - name: GITEA_URL
+              value: {{ .Values.giteaUrl }}
+            - name: GRADER_API_HOST
+              value: {{ .Values.graderApiHost }}
+            - name: GRADER_API_PORT
+              value: {{ .Values.graderApiPort | quote }}
           {{- if .Values.classIDsTeaching }}
           volumeMounts:
           {{- range $id := .Values.classIDsTeaching }}

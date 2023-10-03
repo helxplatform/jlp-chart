@@ -16,6 +16,15 @@ classIDsTeaching:
   - COMP116
   - CHIP690
 
+# URL of the gitea server.
+giteaUrl: ""
+
+# URL of the grader-api server
+graderApiHost: ""
+
+# Port for grader-api
+graderApiPort: "8000"
+
 image:
   repository: containers.renci.org/helxplatform/jupyter-lab-prof
   pullPolicy: Always
