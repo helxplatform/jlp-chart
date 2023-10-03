@@ -1,15 +1,14 @@
-{{- $values := .Values.classIDsTeaching | default list }}
-{{- range $values }}
+{{- range $id := .Values.classIDsTeaching | default list }}
 ---
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
-  name: {{ . | lower }}-pvc
+  name: class-{{ $id | lower }}-pvc
   annotations:
     "helm.sh/resource-policy": "keep"
 spec:
   accessModes:
-    - ReadWriteOnce
+    - ReadWriteMany
   resources:
     requests:
       storage: 5Gi

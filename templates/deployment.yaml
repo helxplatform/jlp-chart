@@ -29,7 +29,7 @@ spec:
       {{- range $id := .Values.classIDsTeaching }}
         - name: {{ $id | lower }}-volume
           persistentVolumeClaim:
-            claimName: {{ $id | lower }}-pvc
+            claimName: class-{{ $id | lower }}-pvc
       {{- end }}
       {{- end }}
       serviceAccountName: {{ include "jlp.serviceAccountName" . }}
