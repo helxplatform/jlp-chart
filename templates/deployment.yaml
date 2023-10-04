@@ -63,10 +63,8 @@ spec:
             {{- end }}
             - name: GITEA_URL
               value: {{ .Values.giteaUrl }}
-            - name: GRADER_API_HOST
-              value: {{ .Values.graderApiHost }}
-            - name: GRADER_API_PORT
-              value: {{ .Values.graderApiPort | quote }}
+            - name: GRADER_API_URL
+              value: {{ .Values.graderApiUrl }}
           {{- if .Values.classIDsTeaching }}
           volumeMounts:
           {{- range $id := .Values.classIDsTeaching }}

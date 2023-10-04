@@ -20,10 +20,7 @@ classIDsTeaching:
 giteaUrl: ""
 
 # URL of the grader-api server
-graderApiHost: ""
-
-# Port for grader-api
-graderApiPort: "8000"
+graderApiUrl: ""
 
 image:
   repository: containers.renci.org/helxplatform/jupyter-lab-prof
