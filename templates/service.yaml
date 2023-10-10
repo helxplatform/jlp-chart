@@ -3,7 +3,7 @@ kind: Service
 metadata:
   name: {{ printf "%s-%s" .Values.fullnameOverride .Values.professorOnyen }}
   labels:
-    {{- include "jlp-chart.labels" . | nindent 4 }}
+    {{- include "jlp.labels" . | nindent 4 }}
 spec:
   type: {{ .Values.service.type }}
   ports:
@@ -12,4 +12,4 @@ spec:
       protocol: TCP
       name: http
   selector:
-    {{- include "jlp-chart.selectorLabels" . | nindent 4 }}
+    {{- include "jlp.selectorLabels" . | nindent 4 }}

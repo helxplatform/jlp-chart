@@ -1,4 +1,4 @@
-# Default values for jlp-chart.
+# Default values for jlp.
 # Create your own overrides file to pass in your own values.
 
 replicaCount: 1
@@ -15,6 +15,15 @@ classIDsTeaching:
   - CS101
   - COMP116
   - CHIP690
+
+# URL of the gitea server.
+giteaUrl: ""
+
+# Host of the grader-api server
+graderApiHost: ""
+
+# Port for the grader-api server
+graderApiPort: "8000"
 
 image:
   repository: containers.renci.org/helxplatform/jupyter-lab-prof
